@@ -1,0 +1,92 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.name }}'s Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light gray background */
+            color: #333;
+        }
+        .container {
+            max-width: 960px;
+        }
+        .header-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Gradient background */
+        }
+        .card {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #667eea;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #5a67d8;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="header-bg py-16 text-white text-center rounded-b-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-5xl font-bold mb-2 rounded-lg">{{ data.name }}</h1>
+            <p class="text-xl font-light rounded-lg">{{ data.tagline }}</p>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- About Section -->
+        <section id="about" class="mb-12 card p-8 rounded-lg">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-4">About Me</h2>
+            <p class="text-lg leading-relaxed text-gray-700">{{ data.about_me }}</p>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="mb-12 card p-8 rounded-lg">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">My Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for project in data.projects %}
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ project.title }}</h3>
+                    <p class="text-gray-600 mb-4">{{ project.description }}</p>
+                    <a href="{{ project.link }}" class="btn-primary py-2 px-4 rounded-md inline-block text-sm font-medium hover:shadow-md" target="_blank" rel="noopener noreferrer">
+                        Learn More
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="card p-8 rounded-lg text-center">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-4">Get In Touch</h2>
+            <p class="text-lg text-gray-700 mb-6">
+                I'm always open to new opportunities and collaborations. Feel free to reach out!
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="mailto:{{ data.contact_email }}" class="btn-primary py-3 px-6 rounded-md font-medium hover:shadow-lg">
+                    Email Me
+                </a>
+                <a href="{{ data.linkedin_url }}" class="btn-primary py-3 px-6 rounded-md font-medium hover:shadow-lg" target="_blank" rel="noopener noreferrer">
+                    LinkedIn
+                </a>
+                <a href="{{ data.github_url }}" class="btn-primary py-3 px-6 rounded-md font-medium hover:shadow-lg" target="_blank" rel="noopener noreferrer">
+                    GitHub
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="text-center py-6 text-gray-600 text-sm">
+        <p>&copy; {{ '2025' if '2025' else '' }} {{ data.name }}. All rights reserved.</p>
+    </footer>
+</body>
+</html>
